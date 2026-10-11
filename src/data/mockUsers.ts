@@ -43,6 +43,27 @@ export const DEFAULT_DEMO_USERS: UserProfile[] = [
 ];
 
 const STORAGE_KEY = 'jansetu_auth_user';
+const THEME_KEY = 'jansetu_dark_mode';
+
+export function getStoredTheme(): boolean {
+  try {
+    const saved = localStorage.getItem(THEME_KEY);
+    if (saved !== null) {
+      return saved === 'true';
+    }
+  } catch (err) {
+    console.error('Failed to get stored theme:', err);
+  }
+  return false;
+}
+
+export function setStoredTheme(isDark: boolean): void {
+  try {
+    localStorage.setItem(THEME_KEY, isDark ? 'true' : 'false');
+  } catch (err) {
+    console.error('Failed to set stored theme:', err);
+  }
+}
 
 export function getStoredUser(): UserProfile | null {
   try {

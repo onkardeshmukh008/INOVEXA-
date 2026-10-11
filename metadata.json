@@ -1,6 +1,6 @@
 {
-  "name": "VaaniSetu - Indian Grassroots Dialect & Citizen Grievance Triage",
-  "description": "Linguistic identification and jurisdictional routing engine for grassroots citizen grievances, petitions, and feedback across 15+ Indian regional dialects.",
+  "name": "JanSetu - Indian Grassroots Language Analyser & Citizen Problem Triage",
+  "description": "Linguistic identification and jurisdictional problem triage engine for grassroots citizen grievances, petitions, and feedback across 16+ Indian regional languages and dialects.",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }

@@ -21,7 +21,7 @@ import {
   FolderTree
 } from 'lucide-react';
 import { DialectAnalysisResult, GrievanceSample } from '../types';
-import { PRESET_GRIEVANCES } from '../data/dialectData';
+import { PRESET_GRIEVANCES, getUrgencyMeta } from '../data/dialectData';
 
 interface LiveAnalyzerProps {
   onAnalyzeComplete?: (text: string, result: DialectAnalysisResult) => void;
@@ -625,21 +625,45 @@ Key Clues: ${result.key_clues.join(', ')}`;
                       </div>
                     </div>
 
-                    {/* Department Category & Urgency */}
-                    <div className="flex flex-wrap items-center justify-between gap-3 pt-2 border-t border-stone-200">
-                      <div className="flex items-center gap-2">
-                        <span className="text-xs font-medium text-stone-500">Civic Category:</span>
-                        <span className="text-xs font-semibold px-2.5 py-1 bg-stone-100 text-stone-800 rounded-md border border-stone-200">
-                          {result.detected_issue_category || 'Civic Grievance'}
-                        </span>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <span className="text-xs font-medium text-stone-500">Urgency Level:</span>
-                        <span className={`text-xs font-bold px-2.5 py-1 rounded-md border ${getUrgencyBadge(result.urgency_level)}`}>
-                          {result.urgency_level || 'Normal'}
-                        </span>
-                      </div>
-                    </div>
+                    {/* Department Category & Accurate Urgency Tags */}
+                    {(() => {
+                      const urgency = getUrgencyMeta(result.urgency_level);
+                      return (
+                        <div className="pt-3 border-t border-stone-200 dark:border-stone-800 space-y-3">
+                          <div className="flex flex-wrap items-center justify-between gap-3">
+                            <div className="flex items-center gap-2">
+                              <span className="text-xs font-medium text-stone-500 dark:text-stone-400">Civic Category:</span>
+                              <span className="text-xs font-semibold px-2.5 py-1 bg-stone-100 dark:bg-stone-800 text-stone-800 dark:text-stone-200 rounded-md border border-stone-200 dark:border-stone-700">
+                                {result.detected_issue_category || 'Civic Grievance'}
+                              </span>
+                            </div>
+
+                            <div className="flex items-center gap-2">
+                              <span className="text-xs font-medium text-stone-500 dark:text-stone-400">Level of Urgency:</span>
+                              <span className={`inline-flex items-center gap-1.5 text-xs font-bold px-2.5 py-1 rounded-md border shadow-2xs ${urgency.badgeClass}`}>
+                                <span className={`w-2 h-2 rounded-full ${urgency.dotColor} ${urgency.level === 'Critical' ? 'animate-ping' : ''}`} />
+                                <span>{urgency.level} ({urgency.priorityCode})</span>
+                                <span className="opacity-60">·</span>
+                                <span className="font-mono text-[11px] font-semibold">{result.urgency_details?.sla || urgency.sla}</span>
+                              </span>
+                            </div>
+                          </div>
+
+                          {/* Urgency Rationale Banner */}
+                          <div className="p-3 rounded-xl bg-stone-50 dark:bg-stone-850 border border-stone-200 dark:border-stone-750 text-xs flex items-start gap-2.5">
+                            <div className={`w-2 h-2 rounded-full mt-1.5 shrink-0 ${urgency.dotColor}`} />
+                            <div className="space-y-0.5">
+                              <span className="font-bold text-stone-800 dark:text-stone-200">
+                                Urgency Rationale ({urgency.priorityCode} Priority):
+                              </span>
+                              <p className="text-stone-600 dark:text-stone-300 leading-relaxed">
+                                {result.urgency_details?.rationale || urgency.rationale}
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                      );
+                    })()}
                   </div>
                 )}
 

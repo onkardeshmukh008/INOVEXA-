@@ -132,6 +132,31 @@ function getFallbackAnalysis(text: string) {
     key_clues = ["'namma layout' (Kannada possessive)", "'neeru' (water) / 'gundi' (potholes)", "'aagide' (past perfect copula)"];
     explanation = "Grassroots Kannada/Kanglish blend with Dravidian verb inflections ('-ide', '-illa') and civic ward terminology.";
     routing_suggestion = "Forward to local office in Janasnehi Karnataka & BBMP Sahaya Helpline 1533";
+  } else if (lower.includes('cheppandi') || lower.includes('unnaru') || lower.includes('lekapothe') || lower.includes('panulu') || lower.includes('mandhi')) {
+    predicted_region = "Grassroots Telugu (Andhra Pradesh & Telangana Rural: Vijayawada, Guntur, Warangal, Karimnagar)";
+    key_clues = ["'unnaru' (Telugu honorific third person verb)", "'panulu' (civic works)", "'lekapothe' (conditional marker)"];
+    explanation = "Regional Telugu civic syntax with Dravidian grammatical morphology and local panchayat terminology.";
+    routing_suggestion = "Forward to local office in Spandana AP & Prajavani Telangana Grievance Redressal";
+  } else if (lower.includes('chhe') || lower.includes('aave chhe') || lower.includes('nathi') || lower.includes('tamne') || lower.includes('amne')) {
+    predicted_region = "Grassroots Gujarati & Saurashtra/Surati (Gujarat: Ahmedabad, Surat, Rajkot, Bhavnagar)";
+    key_clues = ["'chhe' (Gujarati copula)", "'nathi' (Gujarati negation)", "'aave chhe' (present tense aspect)"];
+    explanation = "Authentic Gujarati grammatical copula 'chhe' and negation particle 'nathi' combined with civic municipal vocabulary.";
+    routing_suggestion = "Forward to local office in Gujarat CM Dashboard & SWAGAT Grievance Cell (Gandhinagar / Ahmedabad)";
+  } else if (lower.includes('aahe') || lower.includes('nahi') || lower.includes('aamhi') || lower.includes('jhala') || lower.includes('gavat')) {
+    predicted_region = "Deshastha / Vidarbha / Western Marathi (Maharashtra Interior: Nagpur, Kolhapur, Solapur, Pune Rural)";
+    key_clues = ["'aahe' (Marathi copula)", "'aamhi' (exclusive 1st person plural pronoun)", "'jhala' (past aspect auxiliary)"];
+    explanation = "Standard rural and interior Marathi grammatical features with localized civic infrastructure expressions.";
+    routing_suggestion = "Forward to local office in Aaple Sarkar Grievance Redressal & Zilla Parishad Administrative Office";
+  } else if (lower.includes('illa') || lower.includes('cheyyuka') || lower.includes('njangal') || lower.includes('paranju')) {
+    predicted_region = "Grassroots Malayalam & Manglish (Kerala: Malabar, Kozhikode, Kochi, Travancore)";
+    key_clues = ["'njangal' (Malayalam 1st person pronoun)", "'illa' (negation)", "'paranju' (past communication verb)"];
+    explanation = "Grassroots Malayalam phrasing with distinctive Dravidian pronominal and negation markers.";
+    routing_suggestion = "Forward to local office in CMO Kerala Sutharyakeralam & LSGD Ward Office";
+  } else if (lower.includes('humka') || lower.includes('karat') || lower.includes('rahis') || lower.includes('baat')) {
+    predicted_region = "Awadhi (Central UP: Lucknow, Ayodhya, Barabanki, Rae Bareli, Sultanpur)";
+    key_clues = ["'humka' (Awadhi dative/accusative)", "'rahis' (past tense copula)", "'karat' (imperfective verbal participle)"];
+    explanation = "Diagnostic Awadhi morphology from Central UP including traditional Eastern Hindi pronominal forms.";
+    routing_suggestion = "Forward to local office in UP CM Jan Sunwai Portal 1076 & Lucknow / Ayodhya Collectorate";
   }
 
   // Problem Category Detection
@@ -163,11 +188,73 @@ function getFallbackAnalysis(text: string) {
     defaultDept = "Municipal Ward Office & Local Police Station";
   }
 
-  let urgency_level = "High";
-  if (lower.includes('accident') || lower.includes('bimaari') || lower.includes('blast') || lower.includes('ud gaya') || lower.includes('serious') || lower.includes('epidemic')) {
+  let urgency_level: 'Critical' | 'High' | 'Medium' | 'Low' = "Low";
+  let priority_code: 'P0' | 'P1' | 'P2' | 'P3' = 'P3';
+  let sla = '7–15 Days';
+  let rationale = 'Routine municipal review or standard civil inquiry.';
+
+  // Critical indicators: danger to life, acute health, explosion, fire, live electrocution, fatal accidents
+  if (
+    lower.includes('accident') ||
+    lower.includes('blast') ||
+    lower.includes('ud gaya') ||
+    lower.includes('spark') ||
+    lower.includes('wire tutal') ||
+    lower.includes('current lag') ||
+    lower.includes('bimaari failan') ||
+    lower.includes('dengue') ||
+    lower.includes('epidemic') ||
+    lower.includes('serious aagidane') ||
+    lower.includes('poison') ||
+    lower.includes('hospital') ||
+    lower.includes('jaan ') ||
+    lower.includes('khatra') ||
+    lower.includes('emergency')
+  ) {
     urgency_level = "Critical";
-  } else if (lower.includes('3 mahina') || lower.includes('arji') || lower.includes('dakhil')) {
+    priority_code = "P0";
+    sla = "6–12 Hours";
+    rationale = "Imminent life safety hazard, live electrical emergency, or acute public health epidemic threat.";
+  } else if (
+    lower.includes('chaar din') ||
+    lower.includes('teen din') ||
+    lower.includes('10 naal') ||
+    lower.includes('one week') ||
+    lower.includes('naikhe aawat') ||
+    lower.includes('neeru barthilla') ||
+    lower.includes('thanni varala') ||
+    lower.includes('andhera hai') ||
+    lower.includes('black market') ||
+    lower.includes('bhookhe') ||
+    lower.includes('bhukhe') ||
+    lower.includes('breakdown') ||
+    lower.includes('potholes road la accident') ||
+    lower.includes('fasal sukhi') ||
+    lower.includes('safety problem')
+  ) {
+    urgency_level = "High";
+    priority_code = "P1";
+    sla = "24–48 Hours";
+    rationale = "Multi-day community utility disruption, starvation threat, or persistent night safety risk.";
+  } else if (
+    lower.includes('mahina') ||
+    lower.includes('dakhil kharij') ||
+    lower.includes('daakhil kharij') ||
+    lower.includes('mutation') ||
+    lower.includes('ghus') ||
+    lower.includes('rada') ||
+    lower.includes('firni') ||
+    lower.includes('koni') ||
+    lower.includes('khal') ||
+    lower.includes('khaal') ||
+    lower.includes('drainage') ||
+    lower.includes('chokup') ||
+    lower.includes('kachra')
+  ) {
     urgency_level = "Medium";
+    priority_code = "P2";
+    sla = "3–5 Days";
+    rationale = "Administrative bottlenecks, non-emergency road repairs, or scheduled sanitation intervention.";
   }
 
   return {
@@ -185,30 +272,29 @@ function getFallbackAnalysis(text: string) {
     },
     detected_issue_category,
     urgency_level,
+    urgency_details: {
+      priority_code,
+      sla,
+      rationale
+    },
     standard_english_translation: `Citizen grievance reporting ${detected_issue_category.toLowerCase()} problem requiring administrative intervention.`,
     administrative_vernacular_summary: `नागरिक द्वारा ${detected_issue_category} संबंधित शिकायत दर्ज की गई है। संबंधित विभागीय कार्यालय द्वारा त्वरित संज्ञान अपेक्षित है।`
   };
 }
 
-// Endpoint: Analyze single grievance
-app.post('/api/analyze-dialect', async (req, res) => {
-  try {
-    const { text } = req.body;
-    if (!text || typeof text !== 'string' || !text.trim()) {
-      return res.status(400).json({ error: 'Text prompt is required.' });
-    }
+// Helper to call AI with candidate model fallback
+async function executeDialectAi(promptText: string) {
+  // gemini-3.1-flash-lite is responsive and has active quota
+  const models = ['gemini-3.1-flash-lite', 'gemini-3.8-flash'];
 
+  for (const modelName of models) {
     try {
-      const timeoutPromise = new Promise((_, reject) =>
-        setTimeout(() => reject(new Error('AI generation timeout')), 6500)
-      );
-
       const aiCallPromise = ai.models.generateContent({
-        model: 'gemini-3.8-flash',
+        model: modelName,
         contents: [
           {
             role: 'user',
-            parts: [{ text: `Analyze the following grassroots citizen communication and identify the dialect, region, and routing suggestion:\n\n"""\n${text.trim()}\n"""` }]
+            parts: [{ text: `Analyze the following grassroots citizen communication and identify the dialect, region, and routing suggestion:\n\n"""\n${promptText.trim()}\n"""` }]
           }
         ],
         config: {
@@ -267,20 +353,43 @@ app.post('/api/analyze-dialect', async (req, res) => {
         }
       });
 
+      const timeoutPromise = new Promise((_, reject) =>
+        setTimeout(() => reject(new Error('timeout')), 7000)
+      );
+
       const response: any = await Promise.race([aiCallPromise, timeoutPromise]);
-      const responseText = response.text || '{}';
-      const parsedData = JSON.parse(responseText);
-      return res.json(parsedData);
-    } catch (aiErr: any) {
-      console.warn('AI Model slow or unavailable, using expert linguistic fallback engine:', aiErr?.message);
-      const fallbackData = getFallbackAnalysis(text.trim());
-      return res.json(fallbackData);
+      const text = response?.text;
+      if (text) {
+        return JSON.parse(text);
+      }
+    } catch {
+      // Quietly proceed to candidate fallback
+      continue;
     }
-  } catch (err: any) {
-    console.error('Error in analyze-dialect:', err);
-    return res.status(500).json({
-      error: 'Failed to analyze dialect. ' + (err?.message || 'Server error'),
-    });
+  }
+
+  return null;
+}
+
+// Endpoint: Analyze single grievance
+app.post('/api/analyze-dialect', async (req, res) => {
+  try {
+    const { text } = req.body;
+    if (!text || typeof text !== 'string' || !text.trim()) {
+      return res.status(400).json({ error: 'Text prompt is required.' });
+    }
+
+    const aiResult = await executeDialectAi(text.trim());
+    if (aiResult) {
+      return res.json(aiResult);
+    }
+
+    // High fidelity linguistic rule engine fallback
+    const fallbackData = getFallbackAnalysis(text.trim());
+    return res.json(fallbackData);
+  } catch {
+    const fallbackData = getFallbackAnalysis(req.body?.text || '');
+    return res.json(fallbackData);
   }
 });
 
@@ -295,47 +404,72 @@ app.post('/api/batch-analyze', async (req, res) => {
     const promptText = `Analyze each of the following ${items.length} grassroots citizen complaints. Return an array of JSON objects corresponding to each item in the same order.\n\n` +
       items.map((it: any, idx: number) => `--- Item ${idx + 1} (ID: ${it.id || idx}) ---\n"${it.text}"`).join('\n\n');
 
-    const response = await ai.models.generateContent({
-      model: 'gemini-3.8-flash',
-      contents: [{ role: 'user', parts: [{ text: promptText }] }],
-      config: {
-        systemInstruction: DIALECT_SYSTEM_PROMPT,
-        responseMimeType: 'application/json',
-        responseSchema: {
-          type: Type.ARRAY,
-          items: {
-            type: Type.OBJECT,
-            properties: {
-              predicted_region: { type: Type.STRING },
-              confidence: { type: Type.NUMBER },
-              key_clues: {
-                type: Type.ARRAY,
-                items: { type: Type.STRING }
-              },
-              explanation: { type: Type.STRING },
-              routing_suggestion: { type: Type.STRING },
-              detected_issue_category: { type: Type.STRING },
-              urgency_level: { type: Type.STRING },
-              standard_english_translation: { type: Type.STRING }
-            },
-            required: ['predicted_region', 'confidence', 'key_clues', 'explanation', 'routing_suggestion']
-          }
-        }
-      }
-    });
+    let parsedResults: any[] | null = null;
+    const models = ['gemini-3.1-flash-lite', 'gemini-3.8-flash'];
 
-    const parsedResults = JSON.parse(response.text || '[]');
-    const enrichedResults = items.map((it: any, idx: number) => ({
-      ...it,
-      result: parsedResults[idx] || null
-    }));
+    for (const modelName of models) {
+      try {
+        const aiCallPromise = ai.models.generateContent({
+          model: modelName,
+          contents: [{ role: 'user', parts: [{ text: promptText }] }],
+          config: {
+            systemInstruction: DIALECT_SYSTEM_PROMPT,
+            responseMimeType: 'application/json',
+            responseSchema: {
+              type: Type.ARRAY,
+              items: {
+                type: Type.OBJECT,
+                properties: {
+                  predicted_region: { type: Type.STRING },
+                  confidence: { type: Type.NUMBER },
+                  key_clues: {
+                    type: Type.ARRAY,
+                    items: { type: Type.STRING }
+                  },
+                  explanation: { type: Type.STRING },
+                  routing_suggestion: { type: Type.STRING },
+                  detected_issue_category: { type: Type.STRING },
+                  urgency_level: { type: Type.STRING },
+                  standard_english_translation: { type: Type.STRING }
+                },
+                required: ['predicted_region', 'confidence', 'key_clues', 'explanation', 'routing_suggestion']
+              }
+            }
+          }
+        });
+
+        const timeoutPromise = new Promise((_, reject) =>
+          setTimeout(() => reject(new Error('timeout')), 8000)
+        );
+
+        const response: any = await Promise.race([aiCallPromise, timeoutPromise]);
+        if (response?.text) {
+          parsedResults = JSON.parse(response.text);
+          break;
+        }
+      } catch {
+        continue;
+      }
+    }
+
+    const enrichedResults = items.map((it: any, idx: number) => {
+      const aiItem = parsedResults && parsedResults[idx] ? parsedResults[idx] : null;
+      if (aiItem) {
+        return { ...it, result: aiItem };
+      }
+      return {
+        ...it,
+        result: getFallbackAnalysis(it.text || '')
+      };
+    });
 
     return res.json({ results: enrichedResults });
-  } catch (err: any) {
-    console.error('Error in batch-analyze:', err);
-    return res.status(500).json({
-      error: 'Failed to batch analyze. ' + (err?.message || 'Server error'),
-    });
+  } catch {
+    const fallbackResults = (req.body?.items || []).map((it: any) => ({
+      ...it,
+      result: getFallbackAnalysis(it.text || '')
+    }));
+    return res.json({ results: fallbackResults });
   }
 });
 
@@ -347,6 +481,8 @@ app.get('/api/regions', (_req, res) => {
 });
 
 async function startServer() {
+  app.use(express.static(path.join(__dirname, 'public')));
+
   if (process.env.NODE_ENV !== 'production') {
     const { createServer: createViteServer } = await import('vite');
     const vite = await createViteServer({

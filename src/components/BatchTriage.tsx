@@ -14,6 +14,7 @@ import {
   FolderTree
 } from 'lucide-react';
 import { BatchTicket } from '../types';
+import { getUrgencyMeta } from '../data/dialectData';
 
 interface BatchTriageProps {
   tickets: BatchTicket[];
@@ -232,17 +233,17 @@ export const BatchTriage: React.FC<BatchTriageProps> = ({
 
         <div className="flex flex-wrap items-center gap-3">
           <div className="flex items-center gap-2">
-            <label className="text-stone-500 font-medium">Urgency:</label>
+            <label className="text-stone-500 font-medium">Filter Urgency:</label>
             <select
               value={filterUrgency}
               onChange={(e) => setFilterUrgency(e.target.value)}
               className="border border-stone-300 rounded-lg px-2.5 py-1 text-stone-800 bg-stone-50 text-xs"
             >
-              <option value="All">All Urgencies</option>
-              <option value="Critical">Critical</option>
-              <option value="High">High</option>
-              <option value="Medium">Medium</option>
-              <option value="Low">Low</option>
+              <option value="All">All Urgency Levels</option>
+              <option value="Critical">Critical (P0 · 6–12h)</option>
+              <option value="High">High (P1 · 24–48h)</option>
+              <option value="Medium">Medium (P2 · 3–5d)</option>
+              <option value="Low">Low (P3 · 7–15d)</option>
             </select>
           </div>
         </div>
@@ -261,6 +262,7 @@ export const BatchTriage: React.FC<BatchTriageProps> = ({
                 <th className="py-3 px-4">Ticket & Citizen</th>
                 <th className="py-3 px-4">Channel</th>
                 <th className="py-3 px-4 max-w-xs">Raw Grievance</th>
+                <th className="py-3 px-4">Level of Urgency</th>
                 <th className="py-3 px-4">Identified Dialect</th>
                 <th className="py-3 px-4">Confidence</th>
                 <th className="py-3 px-4">Routing Target</th>
@@ -286,6 +288,23 @@ export const BatchTriage: React.FC<BatchTriageProps> = ({
                     <div className="text-stone-800 line-clamp-2 font-mono text-[11px]">
                       "{ticket.rawText}"
                     </div>
+                  </td>
+
+                  <td className="py-3 px-4 whitespace-nowrap">
+                    {ticket.result?.urgency_level ? (() => {
+                      const urgency = getUrgencyMeta(ticket.result.urgency_level);
+                      return (
+                        <span
+                          className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-[10px] font-bold border shadow-2xs ${urgency.badgeClass}`}
+                          title={`${urgency.priorityCode}: ${ticket.result.urgency_details?.rationale || urgency.rationale} (Turnaround: ${ticket.result.urgency_details?.sla || urgency.sla})`}
+                        >
+                          <span className={`w-1.5 h-1.5 rounded-full ${urgency.dotColor} ${urgency.level === 'Critical' ? 'animate-ping' : ''}`} />
+                          <span>{urgency.level} ({urgency.priorityCode})</span>
+                        </span>
+                      );
+                    })() : (
+                      <span className="text-stone-400 italic text-[11px]">-</span>
+                    )}
                   </td>
 
                   <td className="py-3 px-4">
