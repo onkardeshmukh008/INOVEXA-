@@ -1,1 +1,87 @@
 @import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* Theme transitions */
+html, body {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Dark mode surface refinements for cohesive elegance */
+.dark {
+  color-scheme: dark;
+}
+
+.dark .bg-white {
+  background-color: rgba(28, 25, 23, 0.94) !important;
+  border-color: rgba(68, 64, 60, 0.8) !important;
+  color: #f5f5f4 !important;
+}
+
+.dark .bg-stone-50 {
+  background-color: rgba(41, 37, 36, 0.85) !important;
+  border-color: rgba(68, 64, 60, 0.8) !important;
+  color: #e7e5e4 !important;
+}
+
+.dark .bg-stone-100 {
+  background-color: rgba(41, 37, 36, 0.9) !important;
+  color: #e7e5e4 !important;
+}
+
+.dark .text-stone-900 {
+  color: #fafaf9 !important;
+}
+
+.dark .text-stone-800 {
+  color: #f5f5f4 !important;
+}
+
+.dark .text-stone-700 {
+  color: #e7e5e4 !important;
+}
+
+.dark .text-stone-600 {
+  color: #d6d3d1 !important;
+}
+
+.dark .text-stone-500 {
+  color: #a8a29e !important;
+}
+
+.dark .border-stone-200 {
+  border-color: rgba(68, 64, 60, 0.8) !important;
+}
+
+.dark .border-stone-100 {
+  border-color: rgba(41, 37, 36, 0.8) !important;
+}
+
+.dark .border-stone-300 {
+  border-color: rgba(87, 83, 78, 0.8) !important;
+}
+
+.dark input:not([type="checkbox"]):not([type="radio"]),
+.dark textarea,
+.dark select {
+  background-color: rgba(41, 37, 36, 0.95) !important;
+  color: #fafaf9 !important;
+  border-color: rgba(87, 83, 78, 0.9) !important;
+}
+
+.dark input::placeholder,
+.dark textarea::placeholder {
+  color: #78716c !important;
+}
+
+.dark tr.border-b {
+  border-color: rgba(68, 64, 60, 0.8) !important;
+}
+
+.dark .hover\:bg-stone-50:hover {
+  background-color: rgba(41, 37, 36, 0.9) !important;
+}
+
+.dark .hover\:bg-stone-100:hover {
+  background-color: rgba(58, 53, 51, 0.9) !important;
+}

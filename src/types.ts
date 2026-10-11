@@ -69,3 +69,21 @@ export interface BatchTicket {
   status: 'Pending' | 'Triaged' | 'Routed';
   result?: DialectAnalysisResult;
 }
+
+export type UserRole = 'citizen' | 'officer';
+
+export interface UserProfile {
+  id: string;
+  name: string;
+  email: string;
+  phone: string;
+  role: UserRole;
+  state: string;
+  district: string;
+  preferredLanguage: string;
+  avatarUrl?: string;
+  createdAt: string;
+  complaintsLodgedCount: number;
+  resolvedComplaintsCount: number;
+  darkMode?: boolean;
+}

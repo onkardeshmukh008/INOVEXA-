@@ -474,7 +474,7 @@ export const ProblemSegregation: React.FC<ProblemSegregationProps> = ({
                 <>
                   <div className="bg-white p-2 rounded-lg border border-orange-200 col-span-full">
                     <span className="text-stone-700">
-                      VaaniSetu automatically maps slang terms like <em>"rada"</em> (slum waste dispute), <em>"dakhil kharij"</em> (land mutation delay), and <em>"kotihedar"</em> (ration dealer corruption) directly to this department.
+                      JanSetu automatically maps slang terms like <em>"rada"</em> (slum waste dispute), <em>"dakhil kharij"</em> (land mutation delay), and <em>"kotihedar"</em> (ration dealer corruption) directly to this department.
                     </span>
                   </div>
                 </>

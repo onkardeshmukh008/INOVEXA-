@@ -48,7 +48,7 @@ export const PromptViewer: React.FC = () => {
         </div>
 
         <p className="text-stone-300 text-xs sm:text-sm leading-relaxed max-w-3xl">
-          The VaaniSetu engine strictly outputs the exact schema mandated for automated grievance routing pipelines. It handles Roman script transliteration, Devanagari, regional scripts, grammatical code-mixing, and extreme phonetic spelling variations.
+          The JanSetu engine strictly outputs the exact schema mandated for automated grievance routing pipelines. It handles Roman script transliteration, Devanagari, regional scripts, grammatical code-mixing, and extreme phonetic spelling variations.
         </p>
       </div>
 

@@ -206,7 +206,7 @@ Key Clues: ${result.key_clues.join(', ')}`;
             Linguistic Identification & Jurisdictional Triage
           </div>
           <h1 className="text-2xl sm:text-3xl lg:text-4xl font-serif font-bold tracking-tight text-white">
-            Grassroots Citizen Dialect Engine
+            Grassroots Language Analyser
           </h1>
           <p className="text-stone-300 text-sm sm:text-base leading-relaxed">
             Analyzes raw, unstructured citizen communications—including phonetic Roman script, Devanagari,
@@ -335,7 +335,7 @@ Key Clues: ${result.key_clues.join(', ')}`;
                 ) : (
                   <>
                     <Send className="h-4 w-4" />
-                    <span>Analyze Dialect & Determine Routing</span>
+                    <span>Analyze Language & Determine Routing</span>
                   </>
                 )}
               </button>
@@ -346,7 +346,7 @@ Key Clues: ${result.key_clues.join(', ')}`;
           <div className="bg-amber-50/60 border border-amber-200/80 rounded-xl p-4 text-xs text-amber-900 space-y-2">
             <div className="flex items-center gap-1.5 font-bold text-amber-950">
               <Info className="h-4 w-4 text-amber-700" />
-              <span>How VaaniSetu Identifies Dialect:</span>
+              <span>How JanSetu Identifies Regional Languages & Dialects:</span>
             </div>
             <ul className="list-disc pl-4 space-y-1 text-amber-800/90 leading-relaxed">
               <li><strong>Vocabulary Markers:</strong> Specific regional nouns & slangs (e.g., <em>firni</em>, <em>rada</em>, <em>dakhil kharij</em>, <em>tola</em>).</li>

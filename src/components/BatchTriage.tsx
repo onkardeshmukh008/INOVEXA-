@@ -123,7 +123,7 @@ export const BatchTriage: React.FC<BatchTriageProps> = ({
     const encodedUri = encodeURI(csvContent);
     const link = document.createElement('a');
     link.setAttribute('href', encodedUri);
-    link.setAttribute('download', `vaanisetu_triaged_grievances_${new Date().toISOString().slice(0, 10)}.csv`);
+    link.setAttribute('download', `jansetu_triaged_complaints_${new Date().toISOString().slice(0, 10)}.csv`);
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -149,11 +149,11 @@ export const BatchTriage: React.FC<BatchTriageProps> = ({
               <Layers className="h-5 w-5" />
             </span>
             <h2 className="text-xl font-serif font-bold text-stone-900">
-              Grassroots Grievance Triage Queue
+              Complain/Problem Queue
             </h2>
           </div>
           <p className="text-xs text-stone-500">
-            Automated dialect sorting for multi-channel citizen input (WhatsApp Helpline, SMS, Panchayat Kiosks, 181 IVR).
+            Automated language sorting and citizen complaint triage for multi-channel feeds (WhatsApp Helpline, SMS, Panchayat Kiosks, 181 IVR).
           </p>
         </div>
 
