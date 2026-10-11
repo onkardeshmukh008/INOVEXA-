@@ -5,7 +5,7 @@ export const PROBLEM_CATEGORIES_META: ProblemCategoryMeta[] = [
     id: 'Water & Pipeline',
     label: 'Water & Pipeline Problems',
     icon: 'Droplets',
-    badgeColor: 'bg-cyan-100 text-cyan-800 border-cyan-300 dark:bg-cyan-950/80 dark:text-cyan-200 dark:border-cyan-800',
+    badgeColor: 'bg-cyan-100 text-cyan-800 border-cyan-300',
     department: 'Jal Shakti Vibhag / PHED / Municipal Jal Board',
     defaultSLA: '24–48 Hours',
     description: 'Drinking water scarcity, pipe bursts, dried borewells, contaminated tankers, canal irrigation blockages.'
@@ -14,7 +14,7 @@ export const PROBLEM_CATEGORIES_META: ProblemCategoryMeta[] = [
     id: 'Road & Infrastructure',
     label: 'Road & Infrastructure Problems',
     icon: 'Construction',
-    badgeColor: 'bg-amber-100 text-amber-800 border-amber-300 dark:bg-amber-950/80 dark:text-amber-200 dark:border-amber-800',
+    badgeColor: 'bg-amber-100 text-amber-800 border-amber-300',
     department: 'Public Works Department (PWD) / Rural Roads (PMGSY)',
     defaultSLA: '3–5 Days',
     description: 'Potholes, broken village circular roads (firni), collapsed culverts, unpaved muddy approach roads.'
@@ -23,7 +23,7 @@ export const PROBLEM_CATEGORIES_META: ProblemCategoryMeta[] = [
     id: 'Electricity & Power',
     label: 'Electricity & Power Problems',
     icon: 'Zap',
-    badgeColor: 'bg-yellow-100 text-yellow-800 border-yellow-300 dark:bg-yellow-950/80 dark:text-yellow-200 dark:border-yellow-800',
+    badgeColor: 'bg-yellow-100 text-yellow-800 border-yellow-300',
     department: 'State Electricity Distribution Co. (DISCOM)',
     defaultSLA: '12–24 Hours',
     description: 'Blown phase transformers, continuous blackouts, dangling high-voltage lines, erratic voltage surges.'
@@ -32,7 +32,7 @@ export const PROBLEM_CATEGORIES_META: ProblemCategoryMeta[] = [
     id: 'Sanitation & Waste',
     label: 'Sanitation & Waste Problems',
     icon: 'Trash2',
-    badgeColor: 'bg-emerald-100 text-emerald-800 border-emerald-300 dark:bg-emerald-950/80 dark:text-emerald-200 dark:border-emerald-800',
+    badgeColor: 'bg-emerald-100 text-emerald-800 border-emerald-300',
     department: 'Municipal Sanitation Board / Gram Panchayat Swachhta Cell',
     defaultSLA: '24 Hours',
     description: 'Overflowing open drains, uncleared chawl garbage, choked sewer lines, dengue/pest breeding.'
@@ -41,7 +41,7 @@ export const PROBLEM_CATEGORIES_META: ProblemCategoryMeta[] = [
     id: 'Ration & Food Supply (PDS)',
     label: 'Ration & Food Supply Problems',
     icon: 'ShoppingBag',
-    badgeColor: 'bg-orange-100 text-orange-800 border-orange-300 dark:bg-orange-950/80 dark:text-orange-200 dark:border-orange-800',
+    badgeColor: 'bg-orange-100 text-orange-800 border-orange-300',
     department: 'Food & Civil Supplies Department / District Supply Office (DSO)',
     defaultSLA: '48 Hours',
     description: 'PDS dealer black-marketing, denial of monthly ration quota, biometric machine failure.'
@@ -50,7 +50,7 @@ export const PROBLEM_CATEGORIES_META: ProblemCategoryMeta[] = [
     id: 'Land Records & Revenue',
     label: 'Land Records & Revenue Problems',
     icon: 'FileSpreadsheet',
-    badgeColor: 'bg-purple-100 text-purple-800 border-purple-300 dark:bg-purple-950/80 dark:text-purple-200 dark:border-purple-800',
+    badgeColor: 'bg-purple-100 text-purple-800 border-purple-300',
     department: 'Revenue Department / Tehsil / Anchal Adhikari (Circle Officer)',
     defaultSLA: '7 Days',
     description: 'Unprocessed mutation (dakhil kharij), patwari bribery, contested land boundary records.'
@@ -59,7 +59,7 @@ export const PROBLEM_CATEGORIES_META: ProblemCategoryMeta[] = [
     id: 'Healthcare & Nutrition',
     label: 'Health & Nutrition Problems',
     icon: 'HeartPulse',
-    badgeColor: 'bg-rose-100 text-rose-800 border-rose-300 dark:bg-rose-950/80 dark:text-rose-200 dark:border-rose-800',
+    badgeColor: 'bg-rose-100 text-rose-800 border-rose-300',
     department: 'Chief Medical Officer (CMO) / Women & Child Development',
     defaultSLA: '24 Hours',
     description: 'Primary Health Centre doctor absent, emergency medicines stockout, Mid-Day Meal issues.'
@@ -68,130 +68,12 @@ export const PROBLEM_CATEGORIES_META: ProblemCategoryMeta[] = [
     id: 'Civic Amenities & Safety',
     label: 'Civic Amenities & Safety',
     icon: 'Shield',
-    badgeColor: 'bg-indigo-100 text-indigo-800 border-indigo-300 dark:bg-indigo-950/80 dark:text-indigo-200 dark:border-indigo-800',
+    badgeColor: 'bg-indigo-100 text-indigo-800 border-indigo-300',
     department: 'Municipal Corporation / Local Police Station',
     defaultSLA: '48 Hours',
     description: 'Defunct streetlights causing night crimes, public encroachments, open utility pits.'
   }
 ];
-
-export interface UrgencyMeta {
-  level: 'Critical' | 'High' | 'Medium' | 'Low';
-  priorityCode: 'P0' | 'P1' | 'P2' | 'P3';
-  sla: string;
-  rationale: string;
-  badgeClass: string;
-  dotColor: string;
-}
-
-export function getUrgencyMeta(level?: string): UrgencyMeta {
-  switch (level) {
-    case 'Critical':
-      return {
-        level: 'Critical',
-        priorityCode: 'P0',
-        sla: '6–12 Hours',
-        rationale: 'Imminent life safety hazard, live electrical emergency, or acute public health epidemic threat.',
-        badgeClass: 'bg-red-100 text-red-800 border-red-300 dark:bg-red-950/90 dark:text-red-200 dark:border-red-700',
-        dotColor: 'bg-red-500',
-      };
-    case 'High':
-      return {
-        level: 'High',
-        priorityCode: 'P1',
-        sla: '24–48 Hours',
-        rationale: 'Multi-day community utility disruption, starvation threat, or persistent night safety risk.',
-        badgeClass: 'bg-orange-100 text-orange-800 border-orange-300 dark:bg-orange-950/90 dark:text-orange-200 dark:border-orange-700',
-        dotColor: 'bg-orange-500',
-      };
-    case 'Medium':
-      return {
-        level: 'Medium',
-        priorityCode: 'P2',
-        sla: '3–5 Days',
-        rationale: 'Administrative bottlenecks, non-emergency road repairs, or scheduled sanitation intervention.',
-        badgeClass: 'bg-amber-100 text-amber-800 border-amber-300 dark:bg-amber-950/90 dark:text-amber-200 dark:border-amber-700',
-        dotColor: 'bg-amber-500',
-      };
-    case 'Low':
-    default:
-      return {
-        level: 'Low',
-        priorityCode: 'P3',
-        sla: '7–15 Days',
-        rationale: 'Routine municipal review, informational query, or non-disruptive civil maintenance.',
-        badgeClass: 'bg-slate-100 text-slate-800 border-slate-300 dark:bg-slate-800/90 dark:text-slate-200 dark:border-slate-700',
-        dotColor: 'bg-slate-400',
-      };
-  }
-}
-
-export function evaluateTextUrgency(text: string, category?: string): UrgencyMeta {
-  const lower = text.toLowerCase();
-
-  // Critical indicators: danger to life, acute health, explosion, fire, live electrocution, fatal accidents
-  if (
-    lower.includes('accident') ||
-    lower.includes('blast') ||
-    lower.includes('ud gaya') ||
-    lower.includes('spark') ||
-    lower.includes('wire tutal') ||
-    lower.includes('current lag') ||
-    lower.includes('bimaari failan') ||
-    lower.includes('dengue') ||
-    lower.includes('epidemic') ||
-    lower.includes('serious aagidane') ||
-    lower.includes('poison') ||
-    lower.includes('hospital') ||
-    lower.includes('jaan ') ||
-    lower.includes('khatra') ||
-    lower.includes('emergency')
-  ) {
-    return getUrgencyMeta('Critical');
-  }
-
-  // High indicators: multiple days essential services cutoff, water starved, power blackout, PDS black-marketing
-  if (
-    lower.includes('chaar din') ||
-    lower.includes('teen din') ||
-    lower.includes('10 naal') ||
-    lower.includes('one week') ||
-    lower.includes('naikhe aawat') ||
-    lower.includes('neeru barthilla') ||
-    lower.includes('thanni varala') ||
-    lower.includes('andhera hai') ||
-    lower.includes('black market') ||
-    lower.includes('bhookhe') ||
-    lower.includes('bhukhe') ||
-    lower.includes('breakdown') ||
-    lower.includes('potholes road la accident') ||
-    lower.includes('fasal sukhi') ||
-    lower.includes('safety problem')
-  ) {
-    return getUrgencyMeta('High');
-  }
-
-  // Medium indicators: chronic administrative delay, bureaucratic red-tape, non-emergency drain/pothole
-  if (
-    lower.includes('mahina') ||
-    lower.includes('dakhil kharij') ||
-    lower.includes('daakhil kharij') ||
-    lower.includes('mutation') ||
-    lower.includes('ghus') ||
-    lower.includes('rada') ||
-    lower.includes('firni') ||
-    lower.includes('koni') ||
-    lower.includes('khal') ||
-    lower.includes('khaal') ||
-    lower.includes('drainage') ||
-    lower.includes('chokup') ||
-    lower.includes('kachra')
-  ) {
-    return getUrgencyMeta('Medium');
-  }
-
-  return getUrgencyMeta('Low');
-}
 
 export const DIALECT_ZONES: DialectZoneInfo[] = [
   {
@@ -481,11 +363,6 @@ export const INITIAL_BATCH_TICKETS: BatchTicket[] = [
       routing_suggestion: 'Forward to local office in District Collectorate / Jal Sansthan Mirzapur',
       detected_issue_category: 'Water & Pipeline',
       urgency_level: 'High',
-      urgency_details: {
-        priority_code: 'P1',
-        sla: '24–48 Hours',
-        rationale: 'Drinking pipeline rupture leaving hamlet water-starved for 4 consecutive days.'
-      },
       standard_english_translation: 'Water has not been arriving in our village hamlet for four days; the pipeline is broken, please repair quickly.'
     }
   },
@@ -503,12 +380,7 @@ export const INITIAL_BATCH_TICKETS: BatchTicket[] = [
       explanation: 'Signature Haryanvi pronominal "mahre", village perimeter road term "firni", copula "se", and negation "koni".',
       routing_suggestion: 'Forward to local office in CM Window Haryana / PWD & Panchayati Raj Office Rohtak',
       detected_issue_category: 'Road & Infrastructure',
-      urgency_level: 'Medium',
-      urgency_details: {
-        priority_code: 'P2',
-        sla: '3–5 Days',
-        rationale: 'Village perimeter circular road broken causing farm tractor delays.'
-      },
+      urgency_level: 'High',
       standard_english_translation: 'The boundary ring road of our village is completely broken, tractors get stuck, the village head refuses to listen.'
     }
   },
@@ -527,11 +399,6 @@ export const INITIAL_BATCH_TICKETS: BatchTicket[] = [
       routing_suggestion: 'Forward to local office in TSSPDCL Electric Sub-Station & Prajavani Cell Hyderabad',
       detected_issue_category: 'Electricity & Power',
       urgency_level: 'Critical',
-      urgency_details: {
-        priority_code: 'P0',
-        sla: '6–12 Hours',
-        rationale: 'Lane distribution transformer blown out; electrical hazard and prolonged settlement blackout.'
-      },
       standard_english_translation: 'The lane transformer blew out three days ago causing complete darkness in our settlement, children cannot study, severe distress.'
     }
   },
@@ -549,12 +416,7 @@ export const INITIAL_BATCH_TICKETS: BatchTicket[] = [
       explanation: 'Quintessential Bambaiya dialect markers: "apun", slang "rada", participial ending "-reli", and modal "mangti".',
       routing_suggestion: 'Forward to local office in Brihanmumbai Municipal Corporation (BMC) Ward G/North Office',
       detected_issue_category: 'Sanitation & Waste',
-      urgency_level: 'Medium',
-      urgency_details: {
-        priority_code: 'P2',
-        sla: '3–5 Days',
-        rationale: 'Chawl garbage collection van skipped scheduled route; non-epidemic municipal sanitation backlog.'
-      },
+      urgency_level: 'High',
       standard_english_translation: 'There is huge garbage chaos in our lane, BMC collection van hasn\'t come for 2 days, urgent cleanup needed.'
     }
   },
@@ -572,12 +434,7 @@ export const INITIAL_BATCH_TICKETS: BatchTicket[] = [
       explanation: 'Standard colloquial Rarh Bengali pronominal "amader" and negation morphemes "ni" and "na".',
       routing_suggestion: 'Forward to local office in BDO Office & District Food & Supplies Controller Bardhaman',
       detected_issue_category: 'Ration & Food Supply (PDS)',
-      urgency_level: 'High',
-      urgency_details: {
-        priority_code: 'P1',
-        sla: '24–48 Hours',
-        rationale: 'Deprivation of essential grain quota to BPL cardholders with black market diversion.'
-      },
+      urgency_level: 'Critical',
       standard_english_translation: 'Our village PDS dealer claims rice and wheat have not arrived; denying quota despite BPL card and black-marketing grain.'
     }
   },
@@ -595,12 +452,7 @@ export const INITIAL_BATCH_TICKETS: BatchTicket[] = [
       explanation: 'Distinctive Mithila copula "chhi / achhi", possessive "hamaar", and revenue terms "daakhil kharij".',
       routing_suggestion: 'Forward to local office in Anchal Karyalay (Circle Office) & District Grievance Officer Madhubani',
       detected_issue_category: 'Land Records & Revenue',
-      urgency_level: 'Low',
-      urgency_details: {
-        priority_code: 'P3',
-        sla: '7–15 Days',
-        rationale: 'Routine administrative land mutation delays and grievance redressal hearing.'
-      },
+      urgency_level: 'Medium',
       standard_english_translation: 'The land is in my father\'s name, mutation application has been delayed for 3 months at the circle office due to staff demanding bribes.'
     }
   },
@@ -618,12 +470,7 @@ export const INITIAL_BATCH_TICKETS: BatchTicket[] = [
       explanation: 'Tanglish administrative syntax mixing "enga area", Tamil intensifier "romba", and verbal negation "eriyala".',
       routing_suggestion: 'Forward to local office in Madurai Corporation Ward 12 Office & TANGEDCO EB Cell',
       detected_issue_category: 'Civic Amenities & Safety',
-      urgency_level: 'Critical',
-      urgency_details: {
-        priority_code: 'P0',
-        sla: '6–12 Hours',
-        rationale: 'Zero street lighting along potholed corridor causing active vehicular accidents and injury.'
-      },
+      urgency_level: 'High',
       standard_english_translation: 'Street lights in Ward 12 have not been burning for 10 days, severe night safety issue with potholes causing vehicle accidents.'
     }
   },
@@ -633,22 +480,7 @@ export const INITIAL_BATCH_TICKETS: BatchTicket[] = [
     channel: 'WhatsApp Bot',
     submittedAt: 'Today, 11:00 AM',
     rawText: 'Sade pind ch nali da paani raste te khad geya hai, bimaari failan da darr hai, sarpanch koi sunwai ni kar reha.',
-    status: 'Triaged',
-    result: {
-      predicted_region: 'Grassroots Punjabi & Malwai/Majhi Mix (Punjab: Ludhiana, Amritsar, Bathinda, Jalandhar)',
-      confidence: 0.96,
-      key_clues: ['sade pind ch', 'nali da paani', 'khad geya hai', 'bimaari failan da darr'],
-      explanation: 'Prototypical rural Punjabi phrasing with open sewer terminology and public health outbreak alarm.',
-      routing_suggestion: 'Forward to local office in Punjab CM Window / Rural Development & Panchayats Department (Moga)',
-      detected_issue_category: 'Sanitation & Waste',
-      urgency_level: 'Critical',
-      urgency_details: {
-        priority_code: 'P0',
-        sla: '6–12 Hours',
-        rationale: 'Stagnant raw drain effluent on access path with acute epidemic and vector-borne illness risk.'
-      },
-      standard_english_translation: 'Dirty open drain sewage is stagnating on our village road with imminent fear of epidemic diseases, the village head refuses to hear complaints.'
-    }
+    status: 'Pending'
   },
   {
     id: 'TCK-2026-109',
@@ -656,21 +488,6 @@ export const INITIAL_BATCH_TICKETS: BatchTicket[] = [
     channel: '181 Helpline IVR',
     submittedAt: 'Today, 11:20 AM',
     rawText: 'Namma village bus stop hathira road full gundi aagide, ninne bus breakdown aaythu, PWD avaru enu madilla.',
-    status: 'Triaged',
-    result: {
-      predicted_region: 'Grassroots Kannada & Kanglish (Karnataka: Bengaluru, Mysuru, Hubballi, Belagavi)',
-      confidence: 0.95,
-      key_clues: ['namma village', 'bus stop hathira', 'road full gundi', 'breakdown aaythu'],
-      explanation: 'Grassroots Kannada/Kanglish code-mixing highlighting public transit disruption and road craters.',
-      routing_suggestion: 'Forward to local office in Janasnehi Karnataka & PWD Executive Engineer Division Hubballi',
-      detected_issue_category: 'Road & Infrastructure',
-      urgency_level: 'High',
-      urgency_details: {
-        priority_code: 'P1',
-        sla: '24–48 Hours',
-        rationale: 'Major road craters at village bus station causing public bus breakdown and transit blockade.'
-      },
-      standard_english_translation: 'Near our village bus stop the road is filled with deep potholes; yesterday a public bus broke down, PWD has done nothing.'
-    }
+    status: 'Pending'
   }
 ];

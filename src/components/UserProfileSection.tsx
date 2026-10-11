@@ -26,7 +26,7 @@ import {
   Check
 } from 'lucide-react';
 import { UserProfile, BatchTicket } from '../types';
-import { DIALECT_ZONES, getUrgencyMeta } from '../data/dialectData';
+import { DIALECT_ZONES } from '../data/dialectData';
 import jansetuBg from '../assets/images/jansetu_background_1791711709017.jpg';
 
 interface UserProfileSectionProps {
@@ -462,19 +462,13 @@ export const UserProfileSection: React.FC<UserProfileSectionProps> = ({
                 className="bg-white/95 dark:bg-stone-900/95 backdrop-blur-md rounded-2xl border border-stone-200 dark:border-stone-800 p-5 shadow-xs flex flex-col justify-between space-y-4 hover:border-orange-300 dark:hover:border-orange-700 transition-all"
               >
                 <div className="space-y-3">
-                  <div className="flex items-center justify-between gap-2">
+                  <div className="flex items-center justify-between">
                     <span className="font-mono text-xs font-bold text-orange-800 dark:text-orange-300 bg-orange-50 dark:bg-orange-950/60 px-2 py-0.5 rounded border border-orange-200 dark:border-orange-800">
                       {ticket.id}
                     </span>
-                    {ticket.result?.urgency_level && (() => {
-                      const urgency = getUrgencyMeta(ticket.result.urgency_level);
-                      return (
-                        <span className={`text-[10px] font-bold px-2 py-0.5 rounded-md border flex items-center gap-1 ${urgency.badgeClass}`}>
-                          <span className={`w-1.5 h-1.5 rounded-full ${urgency.dotColor}`} />
-                          <span>{urgency.level} ({urgency.priorityCode})</span>
-                        </span>
-                      );
-                    })()}
+                    <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-100 dark:bg-emerald-950/60 text-emerald-800 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800">
+                      {idx === 0 ? 'Routed to Jal Sansthan' : idx === 1 ? 'Under PWD Review' : 'Closed & Repaired'}
+                    </span>
                   </div>
 
                   <div className="bg-stone-50 dark:bg-stone-800/70 p-3 rounded-xl border border-stone-200 dark:border-stone-700">

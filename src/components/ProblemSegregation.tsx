@@ -26,7 +26,7 @@ import {
   MessageSquare
 } from 'lucide-react';
 import { BatchTicket, ProblemCategoryType, DialectAnalysisResult } from '../types';
-import { PROBLEM_CATEGORIES_META, getUrgencyMeta } from '../data/dialectData';
+import { PROBLEM_CATEGORIES_META } from '../data/dialectData';
 
 interface ProblemSegregationProps {
   tickets: BatchTicket[];
@@ -547,18 +547,15 @@ export const ProblemSegregation: React.FC<ProblemSegregationProps> = ({
                       <span>{cat}</span>
                     </span>
 
-                    {(() => {
-                      const urgency = getUrgencyMeta(ticket.result?.urgency_level);
-                      return (
-                        <span
-                          className={`inline-flex items-center gap-1.5 text-[10px] font-bold px-2 py-0.5 rounded-md border shadow-2xs ${urgency.badgeClass}`}
-                          title={`${urgency.priorityCode}: ${urgency.rationale} (Turnaround: ${urgency.sla})`}
-                        >
-                          <span className={`w-1.5 h-1.5 rounded-full ${urgency.dotColor} ${urgency.level === 'Critical' ? 'animate-ping' : ''}`} />
-                          <span>{urgency.level} ({urgency.priorityCode})</span>
-                        </span>
-                      );
-                    })()}
+                    <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${
+                      ticket.result?.urgency_level === 'Critical'
+                        ? 'bg-red-100 text-red-800 border border-red-300'
+                        : ticket.result?.urgency_level === 'High'
+                        ? 'bg-orange-100 text-orange-800 border border-orange-300'
+                        : 'bg-emerald-100 text-emerald-800 border border-emerald-300'
+                    }`}>
+                      {ticket.result?.urgency_level || 'Normal'}
+                    </span>
                   </div>
 
                   {/* Citizen & Channel info */}

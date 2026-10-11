@@ -188,73 +188,11 @@ function getFallbackAnalysis(text: string) {
     defaultDept = "Municipal Ward Office & Local Police Station";
   }
 
-  let urgency_level: 'Critical' | 'High' | 'Medium' | 'Low' = "Low";
-  let priority_code: 'P0' | 'P1' | 'P2' | 'P3' = 'P3';
-  let sla = '7–15 Days';
-  let rationale = 'Routine municipal review or standard civil inquiry.';
-
-  // Critical indicators: danger to life, acute health, explosion, fire, live electrocution, fatal accidents
-  if (
-    lower.includes('accident') ||
-    lower.includes('blast') ||
-    lower.includes('ud gaya') ||
-    lower.includes('spark') ||
-    lower.includes('wire tutal') ||
-    lower.includes('current lag') ||
-    lower.includes('bimaari failan') ||
-    lower.includes('dengue') ||
-    lower.includes('epidemic') ||
-    lower.includes('serious aagidane') ||
-    lower.includes('poison') ||
-    lower.includes('hospital') ||
-    lower.includes('jaan ') ||
-    lower.includes('khatra') ||
-    lower.includes('emergency')
-  ) {
+  let urgency_level = "High";
+  if (lower.includes('accident') || lower.includes('bimaari') || lower.includes('blast') || lower.includes('ud gaya') || lower.includes('serious') || lower.includes('epidemic')) {
     urgency_level = "Critical";
-    priority_code = "P0";
-    sla = "6–12 Hours";
-    rationale = "Imminent life safety hazard, live electrical emergency, or acute public health epidemic threat.";
-  } else if (
-    lower.includes('chaar din') ||
-    lower.includes('teen din') ||
-    lower.includes('10 naal') ||
-    lower.includes('one week') ||
-    lower.includes('naikhe aawat') ||
-    lower.includes('neeru barthilla') ||
-    lower.includes('thanni varala') ||
-    lower.includes('andhera hai') ||
-    lower.includes('black market') ||
-    lower.includes('bhookhe') ||
-    lower.includes('bhukhe') ||
-    lower.includes('breakdown') ||
-    lower.includes('potholes road la accident') ||
-    lower.includes('fasal sukhi') ||
-    lower.includes('safety problem')
-  ) {
-    urgency_level = "High";
-    priority_code = "P1";
-    sla = "24–48 Hours";
-    rationale = "Multi-day community utility disruption, starvation threat, or persistent night safety risk.";
-  } else if (
-    lower.includes('mahina') ||
-    lower.includes('dakhil kharij') ||
-    lower.includes('daakhil kharij') ||
-    lower.includes('mutation') ||
-    lower.includes('ghus') ||
-    lower.includes('rada') ||
-    lower.includes('firni') ||
-    lower.includes('koni') ||
-    lower.includes('khal') ||
-    lower.includes('khaal') ||
-    lower.includes('drainage') ||
-    lower.includes('chokup') ||
-    lower.includes('kachra')
-  ) {
+  } else if (lower.includes('3 mahina') || lower.includes('arji') || lower.includes('dakhil')) {
     urgency_level = "Medium";
-    priority_code = "P2";
-    sla = "3–5 Days";
-    rationale = "Administrative bottlenecks, non-emergency road repairs, or scheduled sanitation intervention.";
   }
 
   return {
@@ -272,11 +210,6 @@ function getFallbackAnalysis(text: string) {
     },
     detected_issue_category,
     urgency_level,
-    urgency_details: {
-      priority_code,
-      sla,
-      rationale
-    },
     standard_english_translation: `Citizen grievance reporting ${detected_issue_category.toLowerCase()} problem requiring administrative intervention.`,
     administrative_vernacular_summary: `नागरिक द्वारा ${detected_issue_category} संबंधित शिकायत दर्ज की गई है। संबंधित विभागीय कार्यालय द्वारा त्वरित संज्ञान अपेक्षित है।`
   };

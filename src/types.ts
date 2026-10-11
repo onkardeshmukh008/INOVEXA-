@@ -34,11 +34,6 @@ export interface DialectAnalysisResult {
   };
   detected_issue_category?: string;
   urgency_level?: 'Low' | 'Medium' | 'High' | 'Critical';
-  urgency_details?: {
-    priority_code: 'P0' | 'P1' | 'P2' | 'P3';
-    sla: string;
-    rationale: string;
-  };
   standard_english_translation?: string;
   administrative_vernacular_summary?: string;
 }
