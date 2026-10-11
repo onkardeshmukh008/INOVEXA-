@@ -14,6 +14,7 @@ import {
   FolderTree
 } from 'lucide-react';
 import { BatchTicket } from '../types';
+import { analyzeGrievances } from '../utils/grievanceApi';
 
 interface BatchTriageProps {
   tickets: BatchTicket[];
@@ -44,21 +45,11 @@ export const BatchTriage: React.FC<BatchTriageProps> = ({
     setBatchSuccessMsg(null);
 
     try {
-      const response = await fetch('/api/batch-analyze', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          items: pendingTickets.map((t) => ({ id: t.id, text: t.rawText })),
-        }),
-      });
-
-      if (!response.ok) {
-        throw new Error(`Batch request failed with status ${response.status}`);
-      }
-
-      const data = await response.json();
+      const { results, offline } = await analyzeGrievances(
+        pendingTickets.map((t) => ({ id: t.id, text: t.rawText }))
+      );
       const resultsMap = new Map();
-      (data.results || []).forEach((r: any) => {
+      (results || []).forEach((r: any) => {
         resultsMap.set(r.id, r.result);
       });
 
@@ -76,7 +67,11 @@ export const BatchTriage: React.FC<BatchTriageProps> = ({
         })
       );
 
-      setBatchSuccessMsg(`Successfully classified ${pendingTickets.length} grassroots citizen tickets!`);
+      setBatchSuccessMsg(
+        offline
+          ? `Classified ${pendingTickets.length} tickets using offline keyword rules. Verify results before routing.`
+          : `Successfully classified ${pendingTickets.length} grassroots citizen tickets!`
+      );
     } catch (err: any) {
       console.error('Batch triage failed:', err);
       alert('Batch classification error: ' + (err.message || 'Server error'));

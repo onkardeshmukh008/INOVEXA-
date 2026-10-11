@@ -22,6 +22,7 @@ import {
 } from 'lucide-react';
 import { DialectAnalysisResult, GrievanceSample } from '../types';
 import { PRESET_GRIEVANCES } from '../data/dialectData';
+import { analyzeGrievance } from '../utils/grievanceApi';
 
 interface LiveAnalyzerProps {
   onAnalyzeComplete?: (text: string, result: DialectAnalysisResult) => void;
@@ -40,6 +41,7 @@ export const LiveAnalyzer: React.FC<LiveAnalyzerProps> = ({
   const [selectedPresetId, setSelectedPresetId] = useState<string>(PRESET_GRIEVANCES[0].id);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [offlineNotice, setOfflineNotice] = useState(false);
   const [result, setResult] = useState<DialectAnalysisResult | null>(null);
   const [copiedJson, setCopiedJson] = useState(false);
   const [copiedSummary, setCopiedSummary] = useState(false);
@@ -70,21 +72,12 @@ export const LiveAnalyzer: React.FC<LiveAnalyzerProps> = ({
 
     setLoading(true);
     setError(null);
+    setOfflineNotice(false);
 
     try {
-      const response = await fetch('/api/analyze-dialect', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ text: query }),
-      });
-
-      if (!response.ok) {
-        const errorData = await response.json().catch(() => ({}));
-        throw new Error(errorData.error || `Server returned ${response.status}`);
-      }
-
-      const data: DialectAnalysisResult = await response.json();
+      const { result: data, offline } = await analyzeGrievance(query);
       setResult(data);
+      setOfflineNotice(offline);
       setDocketGenerated(null);
 
       if (onAnalyzeComplete) {
@@ -315,6 +308,11 @@ Key Clues: ${result.key_clues.join(', ')}`;
                 <div className="p-3 bg-red-50 border border-red-200 rounded-lg text-xs text-red-700 flex items-start gap-2">
                   <AlertCircle className="h-4 w-4 shrink-0 mt-0.5" />
                   <div>{error}</div>
+                </div>
+              )}
+              {offlineNotice && (
+                <div className="p-3 bg-amber-50 border border-amber-200 rounded-lg text-xs text-amber-800">
+                  The analysis API is unavailable on this static site. Showing a keyword-based offline estimate; verify the result before routing.
                 </div>
               )}
 

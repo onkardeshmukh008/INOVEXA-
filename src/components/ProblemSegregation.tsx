@@ -27,6 +27,7 @@ import {
 } from 'lucide-react';
 import { BatchTicket, ProblemCategoryType, DialectAnalysisResult } from '../types';
 import { PROBLEM_CATEGORIES_META } from '../data/dialectData';
+import { analyzeGrievance } from '../utils/grievanceApi';
 
 interface ProblemSegregationProps {
   tickets: BatchTicket[];
@@ -169,16 +170,7 @@ export const ProblemSegregation: React.FC<ProblemSegregationProps> = ({
     const newId = `TCK-2026-${Math.floor(100 + Math.random() * 900)}`;
 
     try {
-      const response = await fetch('/api/analyze-dialect', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ text: newComplaintText }),
-      });
-
-      let result: DialectAnalysisResult | undefined;
-      if (response.ok) {
-        result = await response.json();
-      }
+      const { result } = await analyzeGrievance(newComplaintText);
 
       const newTicket: BatchTicket = {
         id: newId,
@@ -186,7 +178,7 @@ export const ProblemSegregation: React.FC<ProblemSegregationProps> = ({
         channel: 'WhatsApp Bot',
         submittedAt: 'Just now',
         rawText: newComplaintText,
-        status: result ? 'Triaged' : 'Pending',
+        status: 'Triaged',
         result: result,
       };
 
